@@ -14,3 +14,8 @@ pwn.college{c-FG21u3EE9ZP0mE5z81sHAPNhT.QX3YjM1wiM5gjNzEzW}
 ## What I learned
 I learnt the syntax to write basic commands on CLI.
 
+
+
+
+**flag** `pwn.college{4Ha7xfgasuJ3ELdRGjkqARexd4G.QX4YjM1wiM5gjNzEzW}`
+
