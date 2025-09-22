@@ -75,12 +75,90 @@ pwn.college{YF2vdrsX6DYnqEwOhvIpXaiWQ8v.QX3QTN0wiM5gjNzEzW}
 ### What I learned
 We need to always be in the proper location in order to pull out any file which is required. everytime it won't be in the root directory.
 
+
 ## Position yet elsewhere
 ### My solve
-**Flag:** ``
+This challenge asks to invoke the run program in the challenge directory but this time not directly from the root. It asks us to change our working directory to a specific directory inside which we have the challenge directory.
+
+**Flag:** `pwn.college{IKZCamGb5V-fPwjhGg2GytG6D-Z.QX4QTN0wiM5gjNzEzW}`
 ```
+hacker@paths~position-yet-elsewhere:~$ /challenge/run
+Incorrect...
+You are not currently in the /usr/share/zoneinfo/posix/Asia directory.
+Please use the `cd` utility to change directory appropriately.
+hacker@paths~position-yet-elsewhere:~$ cd /usr/share/zoneinfo/posix/Asia
+hacker@paths~position-yet-elsewhere:/usr/share/zoneinfo/posix/Asia$ /challenge/run
+Correct!!!
+/challenge/run is an absolute path, invoked from the right directory!
+Here is your flag:
+pwn.college{IKZCamGb5V-fPwjhGg2GytG6D-Z.QX4QTN0wiM5gjNzEzW}
 ```
 ### What I learned
+We need to always be in the proper location in order to pull out any file which is required. everytime it won't be in the root directory.
+
+## Implicit relative paths, from /
+In this challenge it is asked to use relative path to invoke a program.
+### My solve
+I had to use a relative path so i first used cd and made my cwd as / (root) then i used relative path i.e challenge/run to invoke the run program.
+**Flag:** `pwn.college{AWonsp6OFhPkmWARXic41YcH_pp.QX5QTN0wiM5gjNzEzW}`
+```
+hacker@paths~implicit-relative-paths-from-:~$ cd /
+hacker@paths~implicit-relative-paths-from-:/$ challenge/run
+Correct!!!
+challenge/run is a relative path, invoked from the right directory!
+Here is your flag:
+pwn.college{AWonsp6OFhPkmWARXic41YcH_pp.QX5QTN0wiM5gjNzEzW}
+```
+### What I learned
+I learned about relative paths and how to implement them.
+
+## explicit relative paths, from /
+This challenge asks to use a relative path to run program from root directory but by using an explicit relative path which uses a '.' in order to refer to the current working directory.
+
+### My solve
+I was required to use an explicit relative path to arrive at challenge/run so i set the current directory to / (root) and then used . to refer to the cwd and wrote the rest of the path as a relative path to run program present inside the challenge directory.
+**Flag:** `pwn.college{o53ZG7eFEk1KqH7D-9EKpJB0zSz.QXwUTN0wiM5gjNzEzW}`
+```
+hacker@paths~explicit-relative-paths-from-:~$ cd /
+hacker@paths~explicit-relative-paths-from-:/$ ./challenge/run
+Correct!!!
+./challenge/run is a relative path, invoked from the right directory!
+Here is your flag:
+pwn.college{o53ZG7eFEk1KqH7D-9EKpJB0zSz.QXwUTN0wiM5gjNzEzW}
+```
+### What I learned
+I learned about explicit relative paths and how to invoke a program or directory using relative path while referrring to the cwd using '.'
+
+## implicit relative path
+This challenge we invoke the run program from the challenge directory. We use . to refer to the cwd i.e the challenge directory
+### My solve
+I used cd command to go to the challenge directory as was instructed in the problem. After that I used the . to refer to the cwd and write the relative path to invoke run.
+**Flag:** `pwn.college{s3L5AZAWtUyL4evcpfyI8ACcjh-.QXxUTN0wiM5gjNzEzW}`
+```
+hacker@paths~implicit-relative-path:~$ cd /challenge
+hacker@paths~implicit-relative-path:/challenge$ ./run
+Correct!!!
+./run is a relative path, invoked from the right directory!
+Here is your flag:
+pwn.college{s3L5AZAWtUyL4evcpfyI8ACcjh-.QXxUTN0wiM5gjNzEzW}
+```
+### What I learned
+I learned that I can also invoke a program or directory from its parent directory by using '.' to refer to it.
+
+
+## home sweet home
+This challenge tells us that the flag will be written into any file we mention as an argument to /challenge/run and the argument must be 3 characters long.
+### My solve
+I used ~ to refer to home/swapnil directory (my home directory) and used /~ as my destination.
+**Flag:** `pwn.college{c_pp7SRz1V5MkvSvBMXqtOsj2SC.QXzMDO0wiM5gjNzEzW}`
+```
+hacker@paths~home-sweet-home:~$ /challenge/run ~/~
+Writing the file to /home/hacker/~!
+... and reading it back to you:
+pwn.college{c_pp7SRz1V5MkvSvBMXqtOsj2SC.QXzMDO0wiM5gjNzEzW}
+```
+### What I learned
+I learnt about the '~' short form and that it stands for my home directory. It makes it easier to refer again and again to my home directory.
 
 
 
