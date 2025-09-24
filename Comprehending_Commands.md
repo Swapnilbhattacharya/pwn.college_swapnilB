@@ -89,9 +89,48 @@ I learned how to use diff command to compare and find out the difference between
 
 ## What I learned
 
+## Touching files
+This challenge teaches us how to create files by using touch command.
 
+### My solve
+**Flag:** `pwn.college{MjelJ-7D9Jk93AdFIbag0dHLn8M.QXwMDO0wiM5gjNzEzW}`
+I was asked to create two files pwn and college respectively inside the tmp directory. So i used cd to go into the tmp directory and then used the touch command separately once on pwn and once on college and this created the two files inside my tmp directory.
+```bash
+hacker@commands~touching-files:~$ cd /tmp
+hacker@commands~touching-files:/tmp$ touch pwn
+hacker@commands~touching-files:/tmp$ ls
+bin  college  hsperfdata_root  pwn  tmp.TpSOPGOVKK
+hacker@commands~touching-files:/tmp$ touch college
+hacker@commands~touching-files:/tmp$ ls
+bin  college  hsperfdata_root  pwn  tmp.TpSOPGOVKK
+hacker@commands~touching-files:/tmp$ /challenge/run
+Success! Here is your flag:
+pwn.college{MjelJ-7D9Jk93AdFIbag0dHLn8M.QXwMDO0wiM5gjNzEzW}
+```
 
+### What I learned
+I learnt how to use the touch command to create a file inside the current working directory or even by using an absolute path.
 
+## Removing Files
+This challenge is about deleting a file using the new "rm" command.
+
+### my solve
+**Flag:** `pwn.college{445ccVKgGz2UOFBzKh0dfqe8fnv.QX2kDM1wiM5gjNzEzW}`
+In this challenge i was given a file called "delete_me" in my home directory. I used the rm command on the file name and it got removes and i made sure that my process was correct by using the ls command for listing directories. I then used the /challenge/check command as instructed.
+```bash
+hacker@commands~removing-files:~$ ls
+ delete_me  '~'
+hacker@commands~removing-files:~$ rm delete_me
+hacker@commands~removing-files:~$ ls
+'~'
+hacker@commands~removing-files:~$ /challenge/check
+Excellent removal. Here is your reward:
+pwn.college{445ccVKgGz2UOFBzKh0dfqe8fnv.QX2kDM1wiM5gjNzEzW}
+```
+### What I learned
+I learnt the process and syntax of writing the rm command to simply remove a file from the current directory using the rm command.
+
+## 
 
 
 
