@@ -193,7 +193,31 @@ I learned about the default convention of linux about files beginning with '.' d
 ### My solve
 ### What I learned
 
+## Making directories
+This challenge teaches us how to create files using the mkdir command.
+### My solve
+**Flag:** `pwn.college{wgAafEgI0KAcCfbzuTYVbo8qgZ8.QXxMDO0wiM5gjNzEzW}`
+I was asked to create a directory called pwn inside the existing tmp directoy so i initially used cd to go into the tmp directory and then used mkdir on pwn to create the directory pwn inside tmp. I was then asked to create a file called college inside the pwn directory. So i used the touch command on the college argument to create a file college.
+```bash
+hacker@commands~making-directories:~$ cd /tmp
+hacker@commands~making-directories:/tmp$ mkdir pwn
+hacker@commands~making-directories:/tmp$ cd pwn
+hacker@commands~making-directories:/tmp/pwn$ touch college
+hacker@commands~making-directories:/tmp/pwn$ ls
+college
+hacker@commands~making-directories:/tmp/pwn$ /challenge/run
+Success! Here is your flag:
+pwn.college{wgAafEgI0KAcCfbzuTYVbo8qgZ8.QXxMDO0wiM5gjNzEzW}
+```
+### What I learned
+I learnt the process of using mkdir command to create directories and also created files inside new directories.
 
+## Finding files
+### My solve
+**Flag:** ``
+```bash
+```
+### What I learned
 
 
 
