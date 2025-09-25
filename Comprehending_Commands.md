@@ -130,7 +130,69 @@ pwn.college{445ccVKgGz2UOFBzKh0dfqe8fnv.QX2kDM1wiM5gjNzEzW}
 ### What I learned
 I learnt the process and syntax of writing the rm command to simply remove a file from the current directory using the rm command.
 
-## 
+## Moving files
+This challenge is about using the mv command to move files from one to another directory.
+
+### My solve
+I had been given a flag file which I had to move into the hack-the-planet directory inside tmp directory so i simply used the mv command on the flag.
+**Flag:** `pwn.college{gVEDwCDoHAyqZGR_zKUTLYGss5S.0VOxEzNxwiM5gjNzEzW}`
+```bash
+hacker@commands~moving-files:~$ mv /flag /tmp/hack-the-planet
+Correct! Performing 'mv /flag /tmp/hack-the-planet'.
+hacker@commands~moving-files:~$ /challenge/check
+Congrats! You successfully moved the flag to /tmp/hack-the-planet! Here it is:
+pwn.college{gVEDwCDoHAyqZGR_zKUTLYGss5S.0VOxEzNxwiM5gjNzEzW}
+```
+### What I learned
+I learned how to use mv command and its syntax to effectively move files from one folder to another using Linuc CLI.
+
+## Hidden files
+This challenge teaches us about a certain convention in Linux which is that files beginning with a '.' don't show up by default.
+
+### My solve
+**Flag:** `pwn.college{09ietLw4MSLNDjT8w5jiwNw-ZPQ.QXwUDO0wiM5gjNzEzW}`
+The challenge taught that in order to list the files that begin with '.' in a directory we have to use the command ls -a so i went into the /(root directory) as instructed and used the ls -la command. It gave me a long list of files with one of them having the flag. I used the cat command to read its contents and there it was- The beautiful flag.
+```bash
+hacker@commands~hidden-files:~$ cd /
+hacker@commands~hidden-files:/$ ls -la
+total 72
+drwxr-xr-x    1 root root 4096 Sep 25 17:42 .
+drwxr-xr-x    1 root root 4096 Sep 25 17:42 ..
+-rwxr-xr-x    1 root root    0 Sep 25 17:41 .dockerenv
+-rw-r--r--    1 root root   60 Sep 25 17:41 .flag-256621546710297
+lrwxrwxrwx    1 root root    7 Apr  4 02:03 bin -> usr/bin
+drwxr-xr-x    2 root root 4096 Apr 15  2020 boot
+drwxr-xr-x    1 root root 4096 Sep 25 17:41 challenge
+drwxr-xr-x    6 root root  380 Sep 25 17:41 dev
+drwxr-xr-x    1 root root 4096 Sep 25 17:41 etc
+drwxr-xr-x    1 root root 4096 Sep  7 01:38 home
+lrwxrwxrwx    1 root root    7 Apr  4 02:03 lib -> usr/lib
+lrwxrwxrwx    1 root root    9 Apr  4 02:03 lib32 -> usr/lib32
+lrwxrwxrwx    1 root root    9 Apr  4 02:03 lib64 -> usr/lib64
+lrwxrwxrwx    1 root root   10 Apr  4 02:03 libx32 -> usr/libx32
+drwxr-xr-x    2 root root 4096 Apr  4 02:03 media
+drwxr-xr-x    2 root root 4096 Apr  4 02:03 mnt
+drwxr-xr-x    1 root root   16 Oct 26  2024 nix
+drwxr-xr-x    1 root root 4096 Sep  7 01:38 opt
+dr-xr-xr-x 3321 root root    0 Sep 25 17:41 proc
+drwx------    1 root root 4096 Sep  7 01:38 root
+drwxr-xr-x    1 root root 4096 Sep 25 17:41 run
+lrwxrwxrwx    1 root root    8 Apr  4 02:03 sbin -> usr/sbin
+drwxr-xr-x    2 root root 4096 Apr  4 02:03 srv
+dr-xr-xr-x   13 root root    0 Sep 23 22:44 sys
+drwxrwxrwt    1 root root 4096 Sep 25 17:41 tmp
+drwxr-xr-x    1 root root 4096 Sep  7 01:22 usr
+drwxr-xr-x    1 root root 4096 Sep  7 01:22 var
+hacker@commands~hidden-files:/$ cat .flag-256621546710297
+pwn.college{09ietLw4MSLNDjT8w5jiwNw-ZPQ.QXwUDO0wiM5gjNzEzW}
+```
+### What I learned
+I learned about the default convention of linux about files beginning with '.' don't get listed by default on using the ls command. I learnt how to correct the issue by using the ls -a command. 
+
+## An epic filesystem quest
+### My solve
+### What I learned
+
 
 
 
