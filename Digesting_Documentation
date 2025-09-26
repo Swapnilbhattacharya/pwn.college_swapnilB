@@ -1,0 +1,47 @@
+## Learning from documentation
+This challenge teaches us how to properly read the documentation and to figure out how to use various programs
+### My solve
+**Flag:** `pwn.college{QIkK7AusHQNLy1mZoPckHCto-v2.QX0ITO0wiM5gjNzEzW}`
+I was given a program called challenge in the challenge directory and i was supposed to pass it a specific argument called "--giveflag". 
+So I simply used the common documentation style to pass the argument and found the flag
+```bash
+hacker@man~learning-from-documentation:~$ /challenge/challenge --giveflag
+Correct argument! Here is your flag:
+pwn.college{QIkK7AusHQNLy1mZoPckHCto-v2.QX0ITO0wiM5gjNzEzW}
+```
+### What I learned
+I learnt the proper documentation and passed an argument into a given program.
+
+## Learning complex usage
+This challenge introduces us to a slightly complicated form of the documentation where we have 2 arguments. 
+### My solve
+**Flag:** `pwn.college{AKA7nRHBE52bvT2fASk1ul1bFcd.QX1ITO0wiM5gjNzEzW}`
+It was asked that we have to use the --printfile argument on the challenge program in the /challenge directory. 
+The argument of the --printfile argument would be my path to the flag which is obviously /flag
+Following the documentation I wrote the command and found the flag.
+```bash
+hacker@man~learning-complex-usage:~$ /challenge/challenge --printfile /flag
+Correct argument! Here is the /flag file:
+pwn.college{AKA7nRHBE52bvT2fASk1ul1bFcd.QX1ITO0wiM5gjNzEzW}
+```
+### What I learned 
+I learned to use little complex commands and used two arguments on a program to find out my flag file.
+
+## Reading Manuals
+This introduces us to manuals for various commands that we pass as arguements to the man command(if available)
+
+### My solve
+**Flag:** `pwn.college{Q--MnWZ3d_xDjYGV3Yj31x_-J2n.QX0EDO0wiM5gjNzEzW}`
+I have been given the program called challenge anf I have to use the proper argument with it to print my flag. On reading the manual i found an argument
+called "--ndxjjx NUM" and it was written that the flag will be printed if NUM=333. So i used the very same command but replaced NUM with 333 and my flag got printed.
+```bash
+hacker@man~reading-manuals:~$ /challenge/challenge --ndxjjx 333
+Correct usage! Your flag: pwn.college{Q--MnWZ3d_xDjYGV3Yj31x_-J2n.QX0EDO0wiM5gjNzEzW}
+```
+### What I learnt
+I learnt to read manuals of the commands and also infer data from it. I used a proper argument mentioned in the manual's description part, 
+wrote the proper documentation and got my flag printed.
+
+## Searching manuals
+### My solve
+### What I learned
