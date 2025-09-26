@@ -96,8 +96,10 @@ I learnt advanced usage of man command. I learnt and applied the use of the man 
 in a manpage to print my flag.
 
 ## Helpful programs
+This challenge is about using the help argument in some programs which do nat have a man page. In this way they tell us how to perform a particular task using them.
 ### My solve
 **Flag:** `pwn.college{oHCV6xtY8DTPi_gihEpc-SoiSwZ.QX3IDO0wiM5gjNzEzW}`
+I was supposed to use the help argument on the challenge program. I did so and i got a list of arguments to pass for various functions. I saw a -p argument which would print some value to make the -g option print my flag i did so and found my required value i then passed the value into the -g argument to get the flag.
 ```bash
 hacker@man~helpful-programs:~$ /challenge/challenge --help
 usage: a challenge to make you ask for help [-h] [--fortune] [-v] [-g GIVE_THE_FLAG] [-p]
@@ -115,7 +117,31 @@ hacker@man~helpful-programs:~$ /challenge/challenge -g 683
 Correct usage! Your flag: pwn.college{oHCV6xtY8DTPi_gihEpc-SoiSwZ.QX3IDO0wiM5gjNzEzW}
 ```
 ### What I learned
+I learned how to use the help argument in programs without the man page to get to know what to pass to get the job done.
 
+## Help for Builtins
+This  challenge tells us about Builtins which are essentially programs but instead of them having man pages or help options, they are built directly into the shell itself.
+### My solve
+**Flag:** `pwn.college{o-uZLGefWuaFPZIipNaFiCTgsd7.QX0ETO0wiM5gjNzEzW}`
+I was told about the help argument which I could pass to the challenge command which was a builtin, rather than a program. I did so and found the value to pass into my required secret argument to print the flag.
+```bash
+hacker@man~help-for-builtins:~$ help challenge
+challenge: challenge [--fortune] [--version] [--secret SECRET]
+    This builtin command will read you the flag, given the right arguments!
+
+    Options:
+      --fortune         display a fortune
+      --version         display the version
+      --secret VALUE    prints the flag, if VALUE is correct
+
+    You must be sure to provide the right value to --secret. That value
+    is "o-uZLGef".
+hacker@man~help-for-builtins:~$ challenge --secret o-uZLGef
+Correct! Here is your flag!
+pwn.college{o-uZLGefWuaFPZIipNaFiCTgsd7.QX0ETO0wiM5gjNzEzW}
+```
+### What I learned
+I learned about builtins and how to use help argument on builtins and used it to find the help options and print the flag by following the steps.
 
 
 
