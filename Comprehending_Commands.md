@@ -82,12 +82,25 @@ Since i had used cd to get into the challenge directory in the beginning, i was 
 I learned how to use diff command to compare and find out the difference between two files. I learned that I can get the difference in the content as well as if some additional content in the other file than in the first file.
 
 ## Listing files 
-
+This challenge teaches us about how we can use ls command to list files in a directory.
 ### My solve
-
-**Flag:** ``
-
+**Flag:** `pwn.college{UXiD8QTfMHzAHYxhxekvb_FYi00.QX4IDO0wiM5gjNzEzW}`
+I have been told that i have to run the file /challenge/run to get to my flag. But in this case, it has been renamed to some random name. So i first went into my challenge directory using cd and then used ls to list the files in challenge. There was a suspicious file named "24105-renamed-run-24658". I used ./ to execute the file and there was my flag.
+```bash
+hacker@commands~listing-files:~$ cd /challenge
+hacker@commands~listing-files:/challenge$ ls -la
+total 20
+drwxr-xr-x 1 root root 4096 Sep 26 11:05 .
+drwxr-xr-x 1 root root 4096 Sep 26 11:05 ..
+-rwsr-xr-x 1 root root   70 Jan 14  2025 .init
+-rwsr-xr-x 1 root root   83 Jan 14  2025 24105-renamed-run-24658
+-rwsr-xr-x 1 root root  790 Jan 14  2025 DESCRIPTION.md
+hacker@commands~listing-files:/challenge$ ./24105-renamed-run-24658
+Yahaha, you found me! Here is your flag:
+pwn.college{UXiD8QTfMHzAHYxhxekvb_FYi00.QX4IDO0wiM5gjNzEzW}
+```
 ## What I learned
+I learnt to use the ls command for listing the files in a directory and how useful it is when i don't know my file names exactly
 
 ## Touching files
 This challenge teaches us how to create files by using touch command.
@@ -190,8 +203,83 @@ pwn.college{09ietLw4MSLNDjT8w5jiwNw-ZPQ.QXwUDO0wiM5gjNzEzW}
 I learned about the default convention of linux about files beginning with '.' don't get listed by default on using the ls command. I learnt how to correct the issue by using the ls -a command. 
 
 ## An epic filesystem quest
+This is a challenge in which one needs to find the key but by following a series of instructions one by one.
+
 ### My solve
+**Flag:** `pwn.college{Qiky_ZmAn4UDD4cZgtOp3Q5_01K.QX5IDO0wiM5gjNzEzW}`
+This challenge said that I would have to use the cd,ls and cat commands and follow the paths and instructions given to me in form of clues hidden in creative file names to reach the flag. I simply followed.
+
+```bash
+hacker@commands~an-epic-filesystem-quest:~$ cd /
+hacker@commands~an-epic-filesystem-quest:/$ ls
+LEAD  boot       dev  flag  lib    lib64   media  nix  proc  run   srv  tmp  var
+bin   challenge  etc  home  lib32  libx32  mnt    opt  root  sbin  sys  usr
+hacker@commands~an-epic-filesystem-quest:/$ cat LEAD
+Great sleuthing!
+The next clue is in: /usr/lib/X11
+
+The next clue is **hidden** --- its filename starts with a '.' character. You'll need to look for it using special options to 'ls'.
+hacker@commands~an-epic-filesystem-quest:/$ ls -a /usr/lib/X11
+.  ..  .README
+hacker@commands~an-epic-filesystem-quest:/$ cat /usr/lib/X11/.README
+Yahaha, you found me!
+The next clue is in: /usr/lib/python3/dist-packages/sage/libs/pynac
+
+The next clue is **hidden** --- its filename starts with a '.' character. You'll need to look for it using special options to 'ls'.
+hacker@commands~an-epic-filesystem-quest:/$ ls -a /usr/lib/python3/dist-packages/sage/libs/pynac
+.   .NOTE        __pycache__                              constant.pxd  pynac.cpython-38-x86_64-linux-gnu.so  pynac.pyx
+..  __init__.py  constant.cpython-38-x86_64-linux-gnu.so  constant.pyx  pynac.pxd                             pynac_wrap.h
+hacker@commands~an-epic-filesystem-quest:/$ cat  /usr/lib/python3/dist-packages/sage/libs/pynac/.NOTE
+Lucky listing!
+The next clue is in: /usr/local/lib/python3.8/dist-packages/numpy/testing/tests
+hacker@commands~an-epic-filesystem-quest:/$ ls -a  /usr/local/lib/python3.8/dist-packages/numpy/testing/tests
+.  ..  SNIPPET  __init__.py  __pycache__  test_doctesting.py  test_utils.py
+hacker@commands~an-epic-filesystem-quest:/$ cat  /usr/local/lib/python3.8/dist-packages/numpy/testing/tests/SNIPPET
+Lucky listing!
+The next clue is in: /usr/share/racket/pkgs/slideshow-exe
+
+The next clue is **delayed** --- it will not become readable until you enter the directory with 'cd'.
+hacker@commands~an-epic-filesystem-quest:/$ cd /usr/share/racket/pkgs/slideshow-exe
+hacker@commands~an-epic-filesystem-quest:/usr/share/racket/pkgs/slideshow-exe$ ls -a
+.  ..  LICENSE.txt  SECRET  info.rkt  slideshow
+hacker@commands~an-epic-filesystem-quest:/usr/share/racket/pkgs/slideshow-exe$ cat SECRET
+Great sleuthing!
+The next clue is in: /opt/linux/linux-5.4/drivers/infiniband/ulp/opa_vnic
+
+The next clue is **delayed** --- it will not become readable until you enter the directory with 'cd'.
+hacker@commands~an-epic-filesystem-quest:/usr/share/racket/pkgs/slideshow-exe$ cd /opt/linux/linux-5.4/drivers/infiniband/ulp/opa_vnic
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/drivers/infiniband/ulp/opa_vnic$ ls -a
+.   Kconfig   TEASER            opa_vnic_encap.h    opa_vnic_internal.h  opa_vnic_vema.c
+..  Makefile  opa_vnic_encap.c  opa_vnic_ethtool.c  opa_vnic_netdev.c    opa_vnic_vema_iface.c
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/drivers/infiniband/ulp/opa_vnic$ cat TEASER
+Yahaha, you found me!
+The next clue is in: /usr/local/lib/python3.8/dist-packages/cryptography/hazmat/bindings/openssl
+
+Watch out! The next clue is **trapped**. You'll need to read it out without 'cd'ing into the directory; otherwise, the clue will self destruct!
+hacker@commands~an-epic-filesystem-quest:/opt/linux/linux-5.4/drivers/infiniband/ulp/opa_vnic$ cd /
+hacker@commands~an-epic-filesystem-quest:/$ ls -a /usr/local/lib/python3.8/dist-packages/cryptography/hazmat/bindings/openssl
+.  ..  CUE-TRAPPED  __init__.py  __pycache__  _conditional.py  binding.py
+hacker@commands~an-epic-filesystem-quest:/$ cat /usr/local/lib/python3.8/dist-packages/cryptography/hazmat/bindings/openssl/CUE-TRAPPED
+Great sleuthing!
+The next clue is in: /usr/share/doc/libmagic1
+
+Watch out! The next clue is **trapped**. You'll need to read it out without 'cd'ing into the directory; otherwise, the clue will self destruct!
+hacker@commands~an-epic-filesystem-quest:/$ ls -a /usr/share/doc/libmagic1
+.  ..  MEMO-TRAPPED  changelog.Debian.gz  copyright
+hacker@commands~an-epic-filesystem-quest:/$ cat /usr/share/doc/libmagic1/MEMO-TRAPPED
+Great sleuthing!
+The next clue is in: /opt/linux/linux-5.4/drivers/gpu/drm/amd/display/dc/dce110
+hacker@commands~an-epic-filesystem-quest:/$ ls -a /opt/linux/linux-5.4/drivers/gpu/drm/amd/display/dc/dce110
+.         dce110_compressor.c    dce110_mem_input_v.c    dce110_opp_v.c     dce110_timing_generator.c    dce110_transform_v.c
+..        dce110_compressor.h    dce110_mem_input_v.h    dce110_opp_v.h     dce110_timing_generator.h    dce110_transform_v.h
+Makefile  dce110_hw_sequencer.c  dce110_opp_csc_v.c      dce110_resource.c  dce110_timing_generator_v.c
+NUGGET    dce110_hw_sequencer.h  dce110_opp_regamma_v.c  dce110_resource.h  dce110_timing_generator_v.h
+hacker@commands~an-epic-filesystem-quest:/$ cat /opt/linux/linux-5.4/drivers/gpu/drm/amd/display/dc/dce110/NUGGET
+CONGRATULATIONS! Your perserverence has paid off, and you have found the flag!
+It is: pwn.college{Qiky_ZmAn4UDD4cZgtOp3Q5_01K.QX5IDO0wiM5gjNzEzW}
+```
 ### What I learned
+I learned and practised the various forms of usage of the cd, ls, ls -a and also cat commands.
 
 ## Making directories
 This challenge teaches us how to create files using the mkdir command.
@@ -274,9 +362,36 @@ pwn.college{ERGMLgoLEevAgUK0vOwSdqKlDKj.QXyMDO0wiM5gjNzEzW}
 ### What I learned
 I learned how to use the 'find' command and search for a file when its directory is not known to me
 
+## Linking files
+This challenge teaches the concept of soft and hard links and makes us find the flag by using the concept of soft linking.
 
+### My solve
+**Flag:** `pwn.college{Qd_0gJR0gEuJyJSIGJvPsBkOQCQ.QX5ETN1wiM5gjNzEzW}`
+I was told that I have my flag in the file named flag in the root directory and that there is another file called not-the-flag which will get invoked whenever I try to run /challenge/catflag. So I simply used the /home/hacker/not-the-flag directory as a soft-link to my /flag directory so that whenever i execute /challenge/catflag it invokes the "not-the-flag" directory which in turn would link me to my flag directory and read it.
+```bash
+hacker@commands~linking-files:~$ ln -s /flag /home/hacker/not-the-flag
+hacker@commands~linking-files:~$ cat /challenge/catflag
+#!/opt/pwn.college/bash
 
+fold -s <<< "About to read out the /home/hacker/not-the-flag file!"
+cat /home/hacker/not-the-flag
+hacker@commands~linking-files:~$ ls -la
+total 20
+drwxr-xr-x 1 hacker hacker   66 Sep 26 10:44  .
+drwxr-xr-x 1 root   root   4096 Sep  7 01:38  ..
+-rw------- 1 hacker hacker 7231 Sep 26 10:45  .bash_history
+drwxr-xr-x 1 hacker hacker    0 Sep 21 19:09  .config
+lrwxrwxrwx 1 hacker hacker    5 Sep 26 10:44  not-the-flag -> /flag
+-rw-r--r-- 1 root   hacker   60 Sep 22 19:29 '~'
+hacker@commands~linking-files:~$ /challenge/catflag
+About to read out the /home/hacker/not-the-flag file!
+pwn.college{Qd_0gJR0gEuJyJSIGJvPsBkOQCQ.QX5ETN1wiM5gjNzEzW}
+```
+### Mistake I made
+I made a mistake while executing tthe /challenge/catflag. I used the cat command with it which is wrong since i don't want to read but execute it.
 
+### What I learned
+I learned the concept of soft links and how to use soft links to reach files by executing some other file to which it is linked (more like using a shortcut on my desktop to open an app or some executable file).
 
 
 
