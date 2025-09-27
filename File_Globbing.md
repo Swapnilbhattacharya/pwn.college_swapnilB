@@ -109,12 +109,13 @@ I learned how to exclude unimportant alphabets and find the required files which
 This teaches us that instead of using * or ? a better alternative is the <tab> key which specifies a target . It figures out what I am trying to type and self completes it.
 ### My solve
 **Flag:** `pwn.college{sXSnwY3legPOs_4LAaV-U0MC4ox.0FN0EzNxwiM5gjNzEzW}`
-I had been asked to print the flag which was there in 
+I had been asked to print the flag which was there in /challenge/pwncollege. I can cat the file but not type the file name. So i wrote 'p' and used tab key to complete the file name and pressd enter.
 ```bash
 hacker@globbing~tab-completion:~$ cat /challenge/pwncollege​
 pwn.college{sXSnwY3legPOs_4LAaV-U0MC4ox.0FN0EzNxwiM5gjNzEzW}
 ```
 ### What I learned
+I can easily make use of the <tab> key to enable automatic completion of the filename in a specific directory wthout having to use globbing tools.
 
 ## Multiple Options for Tab completion
 This teaches us how to use tab globbing when there are more than one file beginning or having almost the same name.
