@@ -261,13 +261,31 @@ pwn.college{4jXUPNXI_td1gUlF_JYL0FfXxRS.0FOxEzNxwiM5gjNzEzW}
 I learnt to use the grep -v command which would help me to filter out all useless lines in a file and would print the lines without the mentioned word or phrase.
 
 ## Duplicating piped data with tee
+This challenge teaches us how to use the tee command to intercept the piping processes to find out errors in passing commands or arguments.
 ### My solve
-**Flag:** ``
+**Flag:** `pwn.college{QsImmnd98gZQqcPHJ8zt-Hs5c4Z.QXxITO0wiM5gjNzEzW}`
+I was asked to pipe the output of /challenge/pwn into /challenge/college but there was a secret argument which had to be found out with the help of tee. So, I used the tee command to intercept the piping process and found out the error in the command. It gave me my secret code. I then used the coorect command and found my flag.
 ```bash
+hacker@piping~duplicating-piped-data-with-tee:~$ /challenge/pwn | tee check | /challenge/college
+Processing...
+WARNING: you are overwriting file check with tee's output...
+The input to 'college' does not contain the correct secret code! This code
+should be provided by the 'pwn' command. HINT: use 'tee' to intercept the
+output of 'pwn' and figure out what the code needs to be.
+hacker@piping~duplicating-piped-data-with-tee:~$ cat check
+Usage: /challenge/pwn --secret [SECRET_ARG]
+
+SECRET_ARG should be "QsImmnd9"
+hacker@piping~duplicating-piped-data-with-tee:~$ /challenge/pwn --secret QsImmnd9 | /challenge/college
+Processing...
+Correct! Passing secret value to /challenge/college...
+Great job! Here is your flag:
+pwn.college{QsImmnd98gZQqcPHJ8zt-Hs5c4Z.QXxITO0wiM5gjNzEzW}
 ```
 ### What I learned
+I learned about the tee command and how I can use it to find errors and solve unwanted wrong outputs.
 
-## Process substitution for input
+## Process substitution for input 
 ### My solve
 **Flag:** ``
 ```bash
