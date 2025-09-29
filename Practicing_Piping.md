@@ -249,11 +249,16 @@ pwn.college{QoHV-A3m_bvBhld3GOvwysxcafG.QX1ATO0wiM5gjNzEzW}
 I learned about the >& technique of redirecting one FD into another FD and learnt its use.
 
 ## Filtering with grep -v
+This challenge teaches us about a special argument -v which when used with grep can modify it to search for only those sentenses which don't contain the specific word or phrase.
 ### My solve
-**Flag:** ``
+**Flag:** `pwn.college{4jXUPNXI_td1gUlF_JYL0FfXxRS.0FOxEzNxwiM5gjNzEzW}`
+I had to filter all decoy flags from the output of /challenge/run so I used th grep -v command to filter out all useless flags and my required flag was printed.
 ```bash
+hacker@piping~filtering-with-grep-v:~$ /challenge/run | grep -v DECOY
+pwn.college{4jXUPNXI_td1gUlF_JYL0FfXxRS.0FOxEzNxwiM5gjNzEzW}
 ```
 ### What I learned
+I learnt to use the grep -v command which would help me to filter out all useless lines in a file and would print the lines without the mentioned word or phrase.
 
 ## Duplicating piped data with tee
 ### My solve
