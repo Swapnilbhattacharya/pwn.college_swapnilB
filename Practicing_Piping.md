@@ -286,29 +286,66 @@ pwn.college{QsImmnd98gZQqcPHJ8zt-Hs5c4Z.QXxITO0wiM5gjNzEzW}
 I learned about the tee command and how I can use it to find errors and solve unwanted wrong outputs.
 
 ## Process substitution for input 
+This challenge teaches us about process substitution and how we can use a command as a file by using the <(command).
 ### My solve
-**Flag:** ``
+**Flag:** ` pwn.college{s8EnXtOzVtN9NNyy62h7gTZDLW_.0lNwMDOxwiM5gjNzEzW}`
+I was supposed to find the difference (which is my flag) between the two given commands. So, I used the <(commmand) technique and used the diff command on the two. Thus, I got my flag.
 ```bash
+hacker@piping~process-substitution-for-input:~$ diff <(/challenge/print_decoys) <(/challenge/print_decoys_and_flag)
+0a1
+> pwn.college{s8EnXtOzVtN9NNyy62h7gTZDLW_.0lNwMDOxwiM5gjNzEzW}
 ```
 ### What I learned
+I learnt about process substitution and how to use it to make commands behave as files.
 
 ## Writing to multiple programs
+This challenge teaches us that >(command) can help us redirect the output of another command into the stdin of the command within the braces.
 ### My solve
-**Flag:** ``
+**Flag:** `pwn.college{MyEDsjFIwZEtxnYh0h7JNDcN2BF.QXwgDN1wiM5gjNzEzW}`
+I was requied to redirect the output of the /challenge/hack command as stdin of /challenge/the and /challenge/planet commands. I used the >(command) technique along with the tee command to perform the task.
 ```bash
+hacker@piping~writing-to-multiple-programs:~$ /challenge/hack | tee >( /challenge/the ) >( /challenge/planet )
+This secret data must directly and simultaneously make it to /challenge/the and
+/challenge/planet. Don't try to copy-paste it; it changes too fast.
+849310293259389428
+Congratulations, you have duplicated data into the input of two programs! Here
+is your flag:
+pwn.college{MyEDsjFIwZEtxnYh0h7JNDcN2BF.QXwgDN1wiM5gjNzEzW}
 ```
 ### What I learned
+I learned about the >(command) technique to redirect the output from somewhere as the stdin of the command.
 
 ## Split-piping stderr and stdout
+This challenge is mainly a revision and practice of the concepts of piping.
 ### My solve
-**Flag:** ``
+**Flag:** `pwn.college{UbvtClk04vv-aVZfn_VD6pYFWuJ.QXxQDM2wiM5gjNzEzW}`
+I had been told that I have to redirect the stdout of hack into planet and the stderr of hack into "the". I used the > character to redirect the stdout of hack into the given file. and 2> to redirect the stderr into the given file also since planet anf the are commands I have used input substitution.
 ```bash
+hacker@piping~split-piping-stderr-and-stdout:~$ /challenge/hack > >(/challenge/planet) 2> >(/challenge/the)
+Congratulations, you have learned a redirection technique that even experts
+struggle with! Here is your flag:
+pwn.college{UbvtClk04vv-aVZfn_VD6pYFWuJ.QXxQDM2wiM5gjNzEzW}
 ```
 ### What I learned
+I practiced a complex case of input substitution and learnt to use and correlate piping concepts together.
 
 ## Named pipes
+This challenge is a simple introduction to FIFOs.
 ### My solve
-**Flag:** ``
+**Flag:** `pwn.college{k634RrFMbr9IKnwPopwdQLdI-JO.01MzMDOxwiM5gjNzEzW}`
+I created a FIFO using the mkfifo command and then used the > character to redirect the stdout of /challenge/run to the flag_fifo and then used the cat command on flagfifo to get the flag.
 ```bash
+hacker@piping~named-pipes:~$ mkfifo /tmp/flag_fifo
+hacker@piping~named-pipes:~$ /challenge/run > /tmp/flag_fifo
+You're successfully redirecting /challenge/run to a FIFO at /tmp/flag_fifo!
+Bash will now try to open the FIFO for writing, to pass it as the stdout of
+/challenge/run. Recall that operations on FIFOs will *block* until both the
+read side and the write side is open, so /challenge/run will not actually be
+launched until you start reading from the FIFO!
+hacker@piping~named-pipes:~$ cat /tmp/flag_fifo
+You've correctly redirected /challenge/run's stdout to a FIFO at
+/tmp/flag_fifo! Here is your flag:
+pwn.college{k634RrFMbr9IKnwPopwdQLdI-JO.01MzMDOxwiM5gjNzEzW}
 ```
 ### What I learned
+I learned the concept of FIFO and how it can be used practically.
