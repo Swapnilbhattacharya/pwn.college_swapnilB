@@ -1,6 +1,6 @@
 ## Listing processes
 This challenge teaches us about the ps command which lists all the current working processes on the terminal.
-## My solve
+### My solve
 **Flag:** `pwn.college{QVDtAEoFvWuPB3Aic0e8BjXnQXF.QX4MDO0wiM5gjNzEzW}`
 I was told that /challenge/run had been renamed to something else and that had been executed so that it would become a running process. I was required to print the running processes in my terminal and find out the renamed /challenge/run program and run it correctly in order to get the flag. I first directly used the ps command along with -ef as an argument in order to print "every" process and that too in a "full format", i.e it would print all the runnning processes along with all other details such as execution time etc. 
 ```bash
@@ -33,7 +33,7 @@ Yahaha, you found me! Here is your flag:
 pwn.college{QVDtAEoFvWuPB3Aic0e8BjXnQXF.QX4MDO0wiM5gjNzEzW}
 Now I will sleep for a while (so that you could find me with 'ps').
 ```
-## What I learned
+### What I learned
 I learned about the ps command and how we can find out ongoing processes in the shell and also the various arguments that can be passed along with the ps command for example the -e which is used for printing all the processes without any filter and also the -f command which is used for printing in full format. They can also be used together as -ef. Also, we can use 'a' to list processes for all users, 'x' to list processes that aren't running in a terminal, and 'u' for a "user-readable" output. These can be combined into a single argument "aux". Overall we can either use "ps -ef" or "ps -aux".
 
 ## Killing Processes
