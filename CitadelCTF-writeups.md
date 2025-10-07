@@ -150,8 +150,24 @@ https://www.dcode.fr/rot-47-cipher
 Learnt about ROT ciphers.
 
 # 7.RANDOMLY ACCESSED MEMORIES
+"On your ascent to this floor, you hear these fragments being played back —
+
+clone it, pull it, reset it, stage it, 
+commit, push it, fork, rebase it. 
+merge it, branch it, tag it, log it, 
+add it, stash it, diff, untrack it … 
+You look around and discover a chamber containing a vast archive of Daft Punk’s music, intertwined with cryptic commits left behind by other musicians. They seem ordinary at first glance, but not everything in the history is what it seems. The archive: https://github.com/evilcryptonite/daft-punk-archive"
+
 ### My solve
-### What I learned
+**Flag:** `citadel{w3_4r3_up_4ll_n1t3_t0_g1t_lucky}`
+
+On opening the github link we could find nothing in the beginning. We opened each and every notes files and found nothing relevant. On going into the changes file and looking at all the changes closely we first found that commit 56 was missing from the list. We continued reading each and every line for more clues and found two more numbers missing that is 122 and 279. Now, we clearly had to search for those commits. We straightaway went to check inside the commit history of the repo and on scrollong through it we could see randomly arranged commit messages but then there was a commit named - Add secret chunk 3(base64) [commit 279]. Similarly we found the rest two secret commits also. Then, the next problem was that we had to convert the base 64 encoded data into the flag. We simply went into a base64 encoder and decoder software and pasted the three encoded statements. Eureka, our flag got printed in front of our eyes.
+
+### What I learnt
+I learnt about base 64 encryption mostly and practised on browsing github commit histories
+
+### References
+https://www.base64decode.org/  - the base64 encoder and decoder software
 
 # 8.SELECTED AMBIENT WORK
 “The symphonic adventure does not end here. On the next floor, a single song keeps echoing through the floor, repeating in a 
@@ -183,7 +199,7 @@ Learnt the process of decoding a morse code.
 
 
 
-# ROBOTS_TRAIL
+# 9.ROBOTS_TRAIL
 “You enter a virtual maze, a labyrinth of shifting corridors and endless paths. A guardian robot patrols the floor, leaving a 
 trail behind as it moves. Follow the path it carves, trace its movements carefully, and uncover the key it leads you to. Only by 
 following the robot’s trail can you reach the door to the next floor. 
@@ -372,6 +388,17 @@ The challenge gives us a corrupted WAV file containing a hidden passcode needed 
 - [hexed.it](https://hexed.it/) for hex editing.
 - Audacity for MIDI playback and analysis.
 
+ # 13._XOR_SLIDE
+ "You realise that a previous climber has set up a puzzle in what was otherwise an empty room, blocking the entrance to the next floor on the ceiling. You must slide the blocks forming the pyramid to create a path above."
+ 
+ ### My solve
+ **Flag:** `citadel{pyr4m1d+x0r}`
+
+ 
+
+ 
+ ### What I learned
+
  # 14.The Sound of Music
 The challenge required participants to track the digital footprints of a user named `citadweller` across various music platforms. The goal was to find three segments of a flag hidden on these platforms, which when combined would reveal the complete flag. This challenge tested OSINT focusing on the ability to gather information from public profiles and links shared by the user.
 
@@ -392,3 +419,49 @@ By combining all three parts, I reconstructed the complete flag.
 - [RateYourMusic](https://rateyourmusic.com)
 - [Spotify](https://www.spotify.com)
 - [Last.fm](https://www.last.fm)
+
+  # 15.ECHOES_AND_PINGS
+  ""
+
+  # 16._THE_RIPPER
+
+  # 17_AETHERCORP_NETPROBEX
+
+  # 18.FEELS_LIKE_WE_ALWAYS_GO_BACKWARDS
+  "After finding the backdoor and making your way to the next floor, you step into a chamber awash with shifting colors and swirling echoes, a concert frozen in time. Kevin Parker stands at the center, his riffs bending reality around him. To ascend, you’ll need to join the session on his terms: push your voice further than comfort, align yourself with the number he hides in the haze, and piece together the melody concealed within layers of reverb. Only then will the music open the way upward."
+  ### My solve
+  **Flag:** `citadel{f0r_0n3_m0r3_h0ur_1_c4n_r4g3}`
+
+  We had been given a file named "tameimpala" first searched on AI about what type of file it was and how could we open it. We read and figured out that it was supposed to be opened using a reverse engineering software like ghidra. I then opened the file using ghidra and again searched on how to figure out stuff on ghidra. I eventually reached up to the defined strings window and started searching for familiar strings. I could find the code for the first level. From the if condition we found the line:     if (0xf < sVar2) {
+      puts("okay okay maybe the sun\'s coming up.");
+      FUN_00101340();
+      return 1;
+  On searching this meaning on chatgpt we found  that the song input must be greater than 15 to proceed and finally we went with the name of the level : "Music to walk home by" as the answer for level 1
+
+  Then we went on to the string of level 2
+  We saw that the code was comparing the input value to the hexadecimal value `0x1e6d9e9c7` which again we figured out the meaning using AI. This number is equal to 8167702983 and this was the answer for level 2.
+
+  Finally we moved on to level 3
+  In this step on putting the file and the ghidra output picture on AI, it told us to navigate to the particular address 00101020
+  where we found this code
+  ```
+    if (sVar1 == 0x25) {
+    lVar2 = 0;
+    while (local_58[lVar2] ==
+           (ushort)((ushort)local_88[lVar2] + ((ushort)lVar2 & 0xff) * 5 +
+                   (ushort)(byte)param_1[lVar2] * 2)) {
+      lVar2 = lVar2 + 1;
+      if (lVar2 == 0x25) {
+        return 1;
+      }
+    }
+  }
+  ```
+  using AI we figured out a mathematical formula which had been used to encrypt the flag. Using that AI made a formula to reverse the code and get the flag back.
+  
+  ### What I learned
+  I learnt to use Ghidra like applications for reverse engineering and how to efficiently use the LLMs in order to automate the code running and mathematics portion.
+
+  
+  
+  
