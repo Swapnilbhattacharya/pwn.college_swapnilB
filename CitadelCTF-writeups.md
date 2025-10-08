@@ -1,10 +1,5 @@
 # 1. ZAHARD'S WELCOME
-“ The base of Citadel rises before you, its great doors sealed with fractured steel and dead circuitry. Faded corporate protocols 
-still hum in the lock, relics of the world that fell. Those who came before tried to climb but all failed. Their echoes linger as 
-fragments of voices, reminders of broken attempts to free humanity. Now you have chosen to take their place. You will be the one to 
-scale the Citadel and finish what they could not. The voices of the fallen whisper through the static: 
-"The path begins in the gathering place. There, candidates are chosen". Here is your invitation. Step into the gathering place where 
-all climbers are briefed before the ascent.”
+This challenge was an OSINT. Here we had to directly go into the discord server of CITADEL-CTF and find the flag from there.
 
 ### MY SOLVE
 **Flag:** ` citadel{7h3_c174d3l_b3ck0n5}`
@@ -14,12 +9,11 @@ In this challenge, we just had to follow a simple clue — the invitation link p
 it led us to the discord server, and from there, we explored the channels a bit. Eventually, we headed to the #rules channel, and 
 that’s where we found the flag at the very beginning.
 
+### References
+https://discord.com/channels/1291123172720250892/1421569359733719060
+
 # 2.THE SOCIAL NETWORK
-“The ascent begins. The first floor is not metal or binaries but of memory. Among the echoes, one voice lingers, of an early 
-climber. He was among the earliest to challenge the Citadel, and though he failed, his traces remain scattered across the ruins of the 
-old world.
-It is said that the key to the next floor can be found by tracing the socials of this legendary climber.
-Start by checking out citadweller on Instagram.”
+Again an OSINT, this challenge wanted us to go into the instagram page of `citadwellers` and find the flag from their instagram post.
 
 ### MY SOLVE
 **Flag:** ` citadel{17_1s_jus7_7h3_b3g1nn1ng}
@@ -30,10 +24,7 @@ the stories. Along with it, there was another clue that pointed us toward a Twit
 the second part of the flag. After that, we simply combined both parts — and that gave us the complete flag.
 
 # 3.OMNISCIENT FLAG'S METADATA
-
-“As you step into the second chamber, a figure manifests. Before you stands a forgotten deity, a dead god spoken of only in 
-whispers. Known by countless names: “Apostle of Epilogue and Eternity”, “Lone Messiah” and many more lost to time.They leave nothing 
-but a single image, a relic carrying his final secret. Hidden within its layers lies the key to ascend to the next chamber.” 
+This challenge just gave us a Jpeg image. It was indicated that we would have to find out the flag from the image. It was meant that we have to access the metadata hidden in the image and the flag would be in there.
 
 ### MY SOLVE
 **Flag:** ` citadel {th1s_ch4ll3ng3_1s_f0r_th4t_On3_ex1ft00l_4ndb1nw4lk_enthus14st}`
@@ -45,10 +36,8 @@ hinted that there was another image hidden inside this one. Following that lead,
 a website called Aperisolve. We uploaded the image there, and it provided us with a downloadable ZIP file containing the extracted 
 layers. Inside that ZIP, we found a PNG image — and that image had the flag written on it.
 
-
 ### REFERENCES 
 https://exif.tools/
-
 https://aperisolve.fr/
 
 ### WHAT I LEARNT 
@@ -405,39 +394,47 @@ The challenge required participants to track the digital footprints of a user na
 ### My Solve
 **Flag:** `citadel{c0mputers_st0pped_exchang1ng_1nf0rmat10n_n_started_shar1ng_st0r1es_n_then_they_were_n0where_t0_be_f0und}`
 
-I began by searching for `citadweller` on music platforms where users typically post album ratings and listening history. 
-I found a RateYourMusic profile at [https://rateyourmusic.com/~citadweller](https://rateyourmusic.com/~citadweller), where the second part of the flag was hidden: `_n_started_shar1ng_st0r1es`.
+I began by searching for various music related websites where there might be some clue and from goodle I found something called Rate your music a  music platform where users typically post album ratings and listening history. 
+I found a RateYourMusic profile at `https://rateyourmusic.com/~citadweller`, where the second part of the flag was hidden: `_n_started_shar1ng_st0r1es`.
 On the same profile, there was a link to a Spotify account. Upon exploring the public playlist, I found the third part of the flag in the playlist description: `_n_then_they_were_n0where_t0_be_f0und`.
-I continued the search and discovered a Last.fm profile at [https://www.last.fm/user/citadweller](https://www.last.fm/user/citadweller). In the shoutbox section, the first part of the flag was located: `citadel{c0mputers_st0pped_exchang1ng_1nf0rmat10n}`.
+I continued the search and discovered a Last.fm profile at `https://www.last.fm/user/citadweller` . In the shoutbox section, the first part of the flag was located: `citadel{c0mputers_st0pped_exchang1ng_1nf0rmat10n}`.
 By combining all three parts, I reconstructed the complete flag.
 
 ### What I Learned
-- This challenge teaches us to be more vigilant and perform OSINTs in a better manner.
-- I also learned that persistence is key in tracking digital footprints as clues can be hidden in any unrelated places.
+This challenge teaches us to be more vigilant and perform OSINTs in a better manner.
+I also learned that persistence is key in tracking digital footprints as clues can be hidden in any unrelated places.
 
 ### References
-- [RateYourMusic](https://rateyourmusic.com)
-- [Spotify](https://www.spotify.com)
-- [Last.fm](https://www.last.fm)
+https://rateyourmusic.com
+https://www.spotify.com
+https://www.last.fm
 
   # 15.ECHOES_AND_PINGS
-  ""
+  
 
   # 16._THE_RIPPER
-  "The guardian of this floor steps from the shadows. Known only as Jack the Ripper, he watches you carefully. He proclaims himself merciful and hands you a word list to help. He asks you to find the passcode hidden in this hash $2a$04$RNoyoWAcW0StwSri4YN1Eeb2j1gBNKutDOMxsLzfyfSvB/ghMHToa. The word list is your only aid. Only by combining the two correctly can you uncover the key and move on to the next floor. Flag format: citadel{password}"
-
+  This challenge had provided us with a hashed text and a long list  of words any one of which could be our flag. We had to decode the text and match with the       wordlist in order to find the correct flag.
+  
   ### My solve
   **Flag:** `citadel{fake_flag_4_fake_pl4y3rs}`
 
+  We began with a research on what a hash actually is and what that line of random characters might imply and on asking AI it told us about the bcrypt encryption or hashing technique. We also tried various websites for checking what the hash meant but they could only tell us about what type of hash it was but not how we could decode it. We moved on to looking at the wordlist which was probably a list of all the various random flags one of which would have been the actual flag which was hashed in the other file. So, on googling further we found about the John-The_Ripper software which helps decode hashes and encryptions. It can also compare the hash with the wordlist and give the correct flag. So, I began with looking at videos and asking ai how to install the john software on my system. I did this and then I found the steps and commands required to use the john-the-ripper software. I used the linux cli, created files, stored the hash and the wordlist in one directory(crackdir) and then used john on that directory with the particular command
+  ```
+cd ~/crackdir
+/tmp/john-jumbo/run/john --format=bcrypt --wordlist=wordlist.txt hashes.txt
+john --show ~/crackdir/hashes.txt
+```
+This printed my required password `fake_flag_4_fake_pl4y3rs` on my CLI.
+this when used in the proper format makes the flag.
   
-
-  ### What I learned
-  
+### What I learned
+ First and foremostm I learned about the John-the-Ripper software which is used to crack passwords from their hash encryptions. It can use a wordlist or specific list of preset passwords and compare them to the hash in order to figure out the real password. That's what we applied here and thus we also learnt how to use it on the cli. I installed it, ran it, found the commands and steps required from the web and also from AI and found the flag. It gave me experience on what to do when required to handle hashes and passwords.
 
   # 17_AETHERCORP_NETPROBEX
 
   # 18.FEELS_LIKE_WE_ALWAYS_GO_BACKWARDS
-  "After finding the backdoor and making your way to the next floor, you step into a chamber awash with shifting colors and swirling echoes, a concert frozen in time. Kevin Parker stands at the center, his riffs bending reality around him. To ascend, you’ll need to join the session on his terms: push your voice further than comfort, align yourself with the number he hides in the haze, and piece together the melody concealed within layers of reverb. Only then will the music open the way upward."
+  This challenge was about figuring out answers to 3 consequtive puzzles. However, there was no way one could get the answers out of the provided details. Thus, the only way was to use "Reverse-engineering". We all had to somehow find access to the program's source code, find clues and figure out answers from the code itself.
+  
   ### My solve
   **Flag:** `citadel{f0r_0n3_m0r3_h0ur_1_c4n_r4g3}`
 
