@@ -357,15 +357,14 @@ The challenge gives us a corrupted WAV file containing a hidden passcode needed 
 ### My Solve
 
 **Flag:** `citadel{8lackM1D1wa5c00l}`
-
-1. I opened the WAV file on Windows, which didn't work.
-2. So I searched on google and found the `xxd` command to view the hex dump. So i wrote in shell `xxd -l 16 mysong.wav` to view the hex dump, revealing bytes starting with `4d31 4431`.
-3. So i was just looking and found there that M1D1 was written in hex. After searching, I found that the file might be a MIDI since MIDI headers start with `4D 54 68 64`. I then changed them using an online hex editor to resemble a MIDI header.
+I opened the WAV file on Windows, which didn't work.
+So I searched on google and found the `xxd` command to view the hex dump. So i wrote in shell `xxd -l 16 mysong.wav` to view the hex dump, revealing bytes starting with `4d31 4431`.
+So i was just looking and found there that M1D1 was written in hex. After searching, I found that the file might be a MIDI since MIDI headers start with `4D 54 68 64`. I then changed them using an online hex editor to resemble a MIDI header.
     ```
     4D 31 44 31  -> M1D1
     4D 54 68 64  -> MThd
     ```
-4. Then I imported the edited `.mid` file into Audacity, where the flag appeared in the audio data.
+Then I imported the edited `.mid` file into Audacity, where the flag appeared in the audio data.
 
 ### What I Learned
 - File headers like WAV and MIDI can be identified using hex dumps. A correct header is crucial for proper file recognition.
@@ -378,17 +377,76 @@ The challenge gives us a corrupted WAV file containing a hidden passcode needed 
 - Audacity for MIDI playback and analysis.
 
  # 13._XOR_SLIDE
- "You realise that a previous climber has set up a puzzle in what was otherwise an empty room, blocking the entrance to the next floor on the ceiling. You must slide the blocks forming the pyramid to create a path above."
- 
- ### My solve
- **Flag:** `citadel{pyr4m1d+x0r}`
+ This challenge involves solving a puzzle where a ciphertext has been encrypted using a sliding XOR method. The goal is to decrypt the ciphertext by determining the keystream, which is hidden within the wrapper text. By understanding how the XOR operation works and utilizing the known wrapper parts, we can recover the plaintext and reveal the flag.
 
- 
+### My Solve
 
- 
- ### What I learned
+**Flag:** `citadel{pyr4m1d+x0r}`
 
- # 14.The Sound of Music
+The ciphertext is encrypted using a sliding XOR, which means each byte of the plaintext is XORed with a keystream byte. The wrapper provides partial known plaintext, which helps in extracting the keystream.
+
+Convert the provided ciphertext from hexadecimal to a bytes object. The wrapper is split into two parts, which are the beginning and end of the flag.
+
+   ```python
+   ct = bytes.fromhex('b31113bd631c7207ec9587b32e686c8b6df255d66f4a987adacf6c283875ded5d1633b5f8823fa0b9bbbfab3195f1a51506afd54e03392ae338d872445c9025d88c8d4425a00a9b4478f86acadbd781df6a4194e376c09145a6f9afcbe02d36b5709f74d910edf94552dc4680041d6717fea824718c21385bdfd6176f722100548336d10ead87f01a95c5497dcb6c2')
+   wrapper = [b'bro i have a cRAzy story to tell you i went to ant4rctica and BOOM i saw a random citadel{', b'} it was crazy like how did it get there??']
+   ```
+
+Using the first part of the wrapper, we iterate through each byte, applying the XOR operation between the ciphertext, wrapper, and previously determined keystream bytes to recover each keystream byte.
+
+   ```python
+   from pwn import xor
+
+   ct_len = len(ct)
+   wrapper_len = len(wrapper[0]) + len(wrapper[1])
+   keystream = bytearray(wrapper_len)
+
+   # Function to compute XOR for the first part of the wrapper
+   def xor_first_part(ciphertext, wrapper_byte, keystream):
+       return xor(ciphertext, wrapper_byte, *keystream)
+
+   for i in range(len(wrapper[0])):
+       keystream[i] = xor_first_part(ct[i], wrapper[0][i], keystream[max(0, i - (ct_len - wrapper_len)):i]).toInt()
+   ```
+
+The second part of the wrapper is used in reverse to determine the remaining bytes of the keystream. This involves applying the XOR operation from the end of the ciphertext.
+
+   ```python
+   # Function to compute XOR for the second part of the wrapper
+   def xor_second_part(ciphertext, wrapper_byte, keystream):
+       return xor(ciphertext, wrapper_byte, *keystream).toInt()
+
+   for i in range(-1, -len(wrapper[1]) - 1, -1):
+       keystream[i] = xor_second_part(ct[i + wrapper_len - len(wrapper[1])], wrapper[1][i], keystream[i:].toInt())
+   ```
+
+With the full keystream, we XOR each corresponding byte of the ciphertext with the keystream to obtain the plaintext.
+
+   ```python
+   plaintext = ct.copy()
+   for i in range(len(plaintext) - len(keystream) + 1):
+       for j in range(len(keystream)):
+           plaintext[i + j] ^= keystream[j]
+   ```
+
+Converting the decrypted bytes to a string gives the flag.
+
+   ```python
+   flag = plaintext.decode()
+   print(flag)  # Output: 'bro i have a cRAzy story to tell you i went to ant4rctica and BOOM i saw a random citadel{pyr4m1d+x0r} it was crazy like how did it get there??'
+   ```
+
+### What I Learned
+
+This challenge taught me the principles of XOR encryption and how keystreams function. I learned how to apply known plaintext attacks, using partial information (the wrapper) to decrypt the entire message. It also improved my understanding of byte operations and manipulating binary data in Python.
+
+### References
+
+Resources on basic XOR encryption and its vulnerabilities.
+Understanding how keystreams are used in XOR-based ciphers.
+Guides on handling bytes and bytearrays in Python for decryption tasks.
+
+# 14.THE SOUND OF MUSIC
 The challenge required participants to track the digital footprints of a user named `citadweller` across various music platforms. The goal was to find three segments of a flag hidden on these platforms, which when combined would reveal the complete flag. This challenge tested OSINT focusing on the ability to gather information from public profiles and links shared by the user.
 
 ### My Solve
@@ -410,8 +468,25 @@ https://www.spotify.com
 https://www.last.fm
 
   # 15.ECHOES_AND_PINGS
-  
+  This challenge had given us a pcap file which had all the network history of the file. We had to search for an image from that file.
 
+  ### My solve
+**Flag:** `citadel{1_r34lly_w4nt_t0_st4y_4t_y0ur_h0us3}`
+  
+  After my initial research on pcap files I found that it  refers to the process of intercepting and recording network traffic. I found on the web that an application called wireshark can be used to read a pcap file. I installed wireshark and opened up the file on it. I looked through all the network protols and saw that there were several TCP packets and 2 ICMP packets. We looked up numerous ways of navigating through this on youtube and on LLMs and finally got the idea to look into the data that was sent over each protocol. We had to look for an image that must have been sent. we kept on searching all these data packets on AI and finally found the ICMP files to have the data packets of that of an image. We then again used the AI to convert the data packets into the desired image. It gave me the exact steps using tshark and binwak to do the process
+  ```bash
+sudo apt install tshark binwalk xxd
+tshark -r challenge.pcap -Y icmp -T fields -e data > icmp_payloads.hex
+tr -d '\n' < icmp_payloads.hex | sed 's/ //g' > combined.hex
+xxd -r -p combined.hex > combined.bin
+binwalk -e combined.bin
+```
+After running these commands i opened the file explorer and opened the image and the flag was written on it.
+
+### What I learned
+I learned about wireshark and how to locate the various protocols and network history. I learnt about binwalk and tshark to bring out hidden data in the form of packets.
+  
+  
   # 16._THE_RIPPER
   This challenge had provided us with a hashed text and a long list  of words any one of which could be our flag. We had to decode the text and match with the       wordlist in order to find the correct flag.
   
