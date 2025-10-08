@@ -469,14 +469,14 @@ We got to know about using %0A to inject multiple commands. So we tested this by
    templates
    ```
 We tried reading the contents of mission_briefing.txt using more (since cat wasn't working, so we searched on google to find any alternatives of cat):
-   
+  ``` 
    ================= OPERATION: SILENT ECHO =================
                    CLASSIFICATION: BLACK ICE
 
    Agent, your objective is to recover the Blacksite Key.
    Our intel confirms it’s hidden deep within the AetherCorp network.
    =========================================================
-   
+   ```
    The file hinted at a hidden key deep within the network.
 We used the find command to locate directories related to AetherCorp. So we used the file command to search the location of the folder if it exists.:
    ```bash
