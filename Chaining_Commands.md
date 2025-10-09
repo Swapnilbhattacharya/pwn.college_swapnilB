@@ -12,11 +12,29 @@ pwn.college{wUScEZYeS5LcNrH7D7xMXl2g7eX.QX1UDO0wiM5gjNzEzW}
 I learned about the ';' operator in order to separate consecutive commands and write them on the same line.
 
 # Building on Success
-This challenge teaches about the && operator which is used to chain multiple commands together and executed the  second only if the first successfully runs.
+This challenge teaches about the && (AND) operator which is used to chain multiple commands together and it executes the  second only if the first successfully runs.
 ### My solve
 **Flag:** `pwn.college{4BsdByWdr3je9MP2ZEPsGrlQ2EX.0lM0MDOxwiM5gjNzEzW}`
+I had to run /challenge/first-success first and then /challenge/second. I used the && operator to separate the two and run them one by one in the same line.
 ```bash
 hacker@chaining~building-on-success:~$ /challenge/first-success && /challenge/second
 Nice chaining! Flag: pwn.college{4BsdByWdr3je9MP2ZEPsGrlQ2EX.0lM0MDOxwiM5gjNzEzW}
 ```
+### What I learned
+I learnt that the && operator can be used to chain commands and execute them in such a way that the second is only executed if the first runs successfully.
+
+# Handling Failure
+This challenge introduces the || (OR) operator which is again a similar chaining technique but opposite to AND. It only executes the second command if the first command fails. i.e either the first one will run (OR) the second one.
+### My solve
+**Flag:** `pwn.college{4tzsMlCqC7pTiiETlR4ShXzVmNb.01M0MDOxwiM5gjNzEzW}`
+I used the || command in between the first-failure file and the second file as instructed.
+```bash
+hacker@chaining~handling-failure:~$ /challenge/first-failure || /challenge/second
+Nice chaining! Flag: pwn.college{4tzsMlCqC7pTiiETlR4ShXzVmNb.01M0MDOxwiM5gjNzEzW}
+```
+### What I learned
+I learned that the || (OR) operator can be used to chain commands and when it is used, the second command executes only when the first command fails to execute.
+
+# Your First Shell Script
+### My solve
 ### What I learned
