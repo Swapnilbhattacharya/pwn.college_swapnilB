@@ -58,11 +58,27 @@ pwn.college{4nymWt9VqHFGrmSIQJEE7o1KDfD.01NzEzNxwiM5gjNzEzW}
 I learned about the which command which can be used to find the path of any command in linux. All these paths are stored in PATH variable and which helps us find the particular required paths from the PATH variable.
 
 # Adding Commands
+This is a challenge which wants /challenge/run to run a bash script called win which would have the code to read the flag.
 ### My solve
-**Flag:** ``
+**Flag:** `pwn.college{wz71UYX8Nl6h8OsD-LzihW3lg2T.QX2cjM1wiM5gjNzEzW}`
+This challenge wanted me to create a script which reads the flag file. I had to use cat /flag inside the win bash script. I did that first. Now I had to give the user execution rights of win since /challenge/run would call win and run it to find the flag. I did that and then the only thing was to set the correct PATH variable for run command to find my script. I had to add the absolute path to my win script into the PATH variable to do this. I used export command in order to make PATH an environment variable and so that I am able to read or write to it. I then prepended my win's path to the PATH variable and then ran the /challenge/run and got the flag.
 ```bash
+hacker@path~adding-commands:~$ nano /home/hacker/win
+hacker@path~adding-commands:~$ cat /home/hacker/win
+#!/bin/bash
+cat /flag
+hacker@path~adding-commands:~$ ls -la /home/hacker/win
+-rw-r--r-- 1 hacker hacker 36 Oct  9 21:16 /home/hacker/win
+hacker@path~adding-commands:~$ chmod u+x /home/hacker/win
+hacker@path~adding-commands:~$ export PATH="/home/hacker:$PATH"
+hacker@path~adding-commands:~$ which win
+/home/hacker/win
+hacker@path~adding-commands:~$ /challenge/run
+Invoking 'win'....
+pwn.college{wz71UYX8Nl6h8OsD-LzihW3lg2T.QX2cjM1wiM5gjNzEzW}
 ```
 ### What I learned
+I learned and practiced the concept of scipts. Also, I added my own path to the PATH variable in order to keep the rest of the PATH intact so that the other commands like cat keep running.
 
 # Hijacking Commands
 ### My solve
