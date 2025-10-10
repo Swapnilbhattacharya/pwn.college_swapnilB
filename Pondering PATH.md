@@ -81,8 +81,24 @@ pwn.college{wz71UYX8Nl6h8OsD-LzihW3lg2T.QX2cjM1wiM5gjNzEzW}
 I learned and practiced the concept of scipts. Also, I added my own path to the PATH variable in order to keep the rest of the PATH intact so that the other commands like cat keep running.
 
 # Hijacking Commands
+This challenge gives more practice with bash scripts along with tinkering with the PATH variable.
 ### My solve
-**Flag:** ``
+**Flag:** `pwn.college{gyaLI0lBJ0mRUXKgOCK8Qksv_WS.QX3cjM1wiM5gjNzEzW}`
+Just like in the first the challenge, the /challenge/run command will try to delete the flag using rm. Howeever, unlike the first one, this one will not print the flag automatically. Hence, clearly I need to create a bash script which reads my file and at the same time I have to fool /challenge/run to execute my bash script instead of the real rm command. I began with creating a bash script named rm. Of course, I need to fool the system into thinking that it is the real rm. I wrote the bash script and designed it to cat the flag out from the /flag variable and I edited the script using the nano editor. I then came to my main terminal where I first checked the permissions of the rm file I created as I had to make sure it was executable by me. I saw that It was already executable as I had used chmod in my previous attempt. I then went on to change the PATH variable(main portion). I exported the path variable and appended my own rm's absolute path into the variable as I had to make sure the system took my fake rm file as the real rm. I then confirmed my job was done with the which command which showed that my rm had been properly linked. I then ran /challenge/run and finally it gave me my flag.
 ```bash
+hacker@path~hijacking-commands:~$ nano rm
+hacker@path~hijacking-commands:~$ ls -la rm
+-rwxr--r-- 1 hacker hacker 22 Oct 10 13:53 rm
+hacker@path~hijacking-commands:~$ cat rm
+#!/bin/bash
+cat /flag
+hacker@path~hijacking-commands:~$ export PATH="/home/hacker:$PATH"
+hacker@path~hijacking-commands:~$ which rm
+/home/hacker/rm
+hacker@path~hijacking-commands:~$ /challenge/run
+Trying to remove /flag...
+Found 'rm' command at /home/hacker/rm. Executing!
+pwn.college{gyaLI0lBJ0mRUXKgOCK8Qksv_WS.QX3cjM1wiM5gjNzEzW}
 ```
 ### What I learned
+I practised more of bash scripts and also a little more of tinkering with PATH varibles.
